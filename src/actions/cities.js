@@ -1,6 +1,5 @@
-import { addAsyncWorkingRequest, removeAsyncWorkingRequest } from '../../reducer/modules/systemWorking'
-import { getCityList } from '../api/city';
-import { setCityList } from '../reducer/modules/cities';
+import { addAsyncWorkingRequest, removeAsyncWorkingRequest } from '../reducer/modules/systemWorking'
+import { getCityListApi } from '../api/city';
 
 export const storeActions = {
   CITY_LIST: 'CITY_LIST',
@@ -22,10 +21,12 @@ export const getCityList = (data) => {
   return async function (dispatch) {
     try {
       dispatch(addAsyncWorkingRequest())
-      const response = await getCatgoryListApi(data);
+      const response = await getCityListApi(data);
+      console.log('response', response)
       dispatch(setCityList(response))
     } catch (error) {
       console.log('Error : ', error);
+      console.log('Error : ', error.message);
     } finally {
       dispatch(removeAsyncWorkingRequest())
     }

@@ -15,23 +15,32 @@ export async function doDelete(url, token = '') {
 }
 
 async function doRequest(url, payload, token, method = 'POST') {
-  const headers = { 'content-type': 'application/json' }
+  console.log('url', url)
+  const  headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'  // I added this line
+}
+
+  console.log('headers', headers)
   const request = {
     cache: 'no-cache',
     method: method,
-    headers: headers
+    headers: headers,
   }
 
+  console.log('method', method)
   if (method !== 'GET') request.body = JSON.stringify(payload)
 
+  console.log('request', request)
   const responseStream = await fetch(url, request)
-
+console.log('responseStream', responseStream)
   //successful no body
   if (responseStream.status === 204) {
     return {}
   }
 
   const resp = await responseStream.json()
+  console.log('resp====', resp)
   if (resp.hasOwnProperty('data') || (responseStream.status >= 200 && responseStream.status < 300)) {
     return resp;
   }
