@@ -1,57 +1,49 @@
-import React, {useState, useEffect} from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity
-} from 'react-native';
-import { connect } from "react-redux";
+/* eslint-disable no-shadow */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect} from 'react';
+import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {connect} from 'react-redux';
 import Header from '../../component/Header';
 import font from '../../theme/font';
-import {getCityList }from '../../actions/cities';
+import {getCityList} from '../../actions/cities';
 
-const itemList = [
-  { key: 'One' },
-  { key: 'Two' },
-  { key: 'Three' },
-  { key: 'four' },
-  { key: 'five' },
-]
-
-const Home = ({ navigation, getCityList }) => {
-
+const Home = ({navigation, getCityList, cities}) => {
   useEffect(() => {
-    getCityList()
+    // get All City List
+    getCityList();
   }, []);
 
   const renderEmptyRecordView = () => (
     <View style={styles.noListOuter}>
-      <Text style={styles.noListText}>
-        No List Found
-      </Text>
+      <Text style={styles.noListText}>No List Found</Text>
     </View>
   );
 
-  const renderCountryList = ({item ,index}) => {
+  const renderCountryList = ({item, index}) => {
+    const weatherData = item.weather[0];
     return (
-      <TouchableOpacity key={index} style={styles.listContainer} onPress={() => navigation.navigate('Weather')}>
+      <TouchableOpacity
+        key={index}
+        style={styles.listContainer}
+        onPress={() => navigation.navigate('Weather', {data: item})}>
         <View>
-          <Text style={styles.cityName}>Dhaka</Text>
-          <Text style={styles.weatherType}>Cloudy</Text>
+          <Text style={styles.cityName}>{item.name}</Text>
+          <Text style={styles.weatherType}>{weatherData.main} </Text>
         </View>
-        <Text style={styles.temperature}>25&deg;{' '}<Text style={{ fontSize: 18 }}>C</Text> </Text>
+        <Text style={styles.temperature}>
+          {item.main.temp}&deg; <Text style={styles.temType}>C</Text>{' '}
+        </Text>
       </TouchableOpacity>
-    )
-  }
+    );
+  };
 
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.listOuter}>
         <FlatList
-          data={itemList}
-          extraData={itemList}
+          data={cities}
+          extraData={cities}
           renderItem={renderCountryList}
           showsVerticalScrollIndicator={false}
           keyboardDismissMode="on-drag"
@@ -64,7 +56,7 @@ const Home = ({ navigation, getCityList }) => {
 };
 
 const mapStateToProps = state => ({
- 
+  cities: state.cities.cities,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -104,15 +96,16 @@ const styles = StyleSheet.create({
   },
   temperature: {
     fontSize: 32,
-    fontFamily: font.type.Bold,
+    fontFamily: font.type.Helvetica,
   },
   noListOuter: {
     flex: 1,
-    alignItems:'center',
-    justifyContent:'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   noListText: {
     fontSize: 18,
-    fontFamily: font.type.Bold,
-  }
+    fontFamily: font.type.Helvetica,
+  },
+  temType: {fontSize: 25},
 });

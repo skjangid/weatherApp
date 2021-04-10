@@ -1,29 +1,29 @@
-import React, { memo } from 'react'
-import { View, ActivityIndicator, StyleSheet } from 'react-native'
-import { connect } from 'react-redux'
-import { colors, metrics } from '../../theme';
+import React, {memo} from 'react';
+import {View, ActivityIndicator, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
+import {colors, metrics} from '../../theme';
 
 const AsyncOverlay = () => {
-  if(this.props.visible !== 0 ){
+  if (this.props.visible !== 0) {
     return (
-      <View style={styles.blur} >
+      <View style={styles.blur}>
         <ActivityIndicator size="large" color={colors.baseColor} />
-      </View>       
-    )
+      </View>
+    );
   } else {
-    return null
-  }   
-}
-
-const mapStateToProps = (state) => {
-  return {
-    visible: state.systemWorking.requestCount
+    return null;
   }
-}
+};
+
+const mapStateToProps = state => {
+  return {
+    visible: state.systemWorking.requestCount,
+  };
+};
 
 const mapDispatchToProps = () => {
-  return {}
-}
+  return {};
+};
 
 export default memo(connect(mapStateToProps, mapDispatchToProps)(AsyncOverlay));
 
@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
 });

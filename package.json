@@ -12,7 +12,7 @@
   "dependencies": {
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
-    "native-base": "^2.15.2",
+    "moment": "^2.29.1",
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-elements": "^3.3.2",

@@ -1,10 +1,7 @@
-const type={
-  Bold:'Helvetica-Bold',
-  BoldOblique:'Helvetica-BoldOblique',
-  compressed:'helvetica-compressed',
-  Oblique:'Helvetica-Oblique',
-  roundedBold:'helvetica-rounded-bold',
-  Helvetica:'Helvetica',
+const type = {
+  Bold: 'Roboto-Bold',
+  BoldOblique: 'Roboto-BoldOblique',
+  Helvetica: 'Roboto-Regular',
 };
 
-export default { type }
+export default {type};
