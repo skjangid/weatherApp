@@ -1,7 +1,7 @@
 const type = {
-  Bold: 'Roboto-Bold',
-  BoldOblique: 'Roboto-BoldOblique',
-  Helvetica: 'Roboto-Regular',
+  RobotBold: 'Roboto-Bold',
+  RobotBoldOblique: 'Roboto-BoldOblique',
+  Robot: 'Roboto-Regular',
 };
 
 export default {type};

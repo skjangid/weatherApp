@@ -21,7 +21,7 @@ const Header = ({title, container, backIcon, handleBack}) => {
           <Icon
             name="arrow-back"
             type="MaterialIcons"
-            fontSize={18}
+            size={28}
             color={'#fff'}
           />
         </TouchableOpacity>
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   labelText: {
-    fontSize: 18,
-    fontFamily: font.type.Helvetica,
+    fontSize: 22,
+    fontFamily: font.type.Robot,
     color: colors.whiteColor,
     marginLeft: '28%',
   },

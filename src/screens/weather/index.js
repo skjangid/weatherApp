@@ -11,7 +11,7 @@ const height = metrics.screenHeight;
 
 const Weather = ({navigation, route}) => {
   const data = route.params.data;
-  const [flashOpen, setFlashOpen] = useState(true);
+  const [flashOpen, setFlashOpen] = useState(false);
 
   const handleBack = () => {
     navigation.goBack();
@@ -19,7 +19,7 @@ const Weather = ({navigation, route}) => {
 
   const handleOpen = () => {
     setFlashOpen(!flashOpen);
-    setTimeout(() => setFlashOpen(false), 10000);
+    setTimeout(() => setFlashOpen(false), 5000);
   };
 
   const bottomDetails = () => {
@@ -55,31 +55,15 @@ const Weather = ({navigation, route}) => {
     );
   };
 
-  return (
-    <View style={styles.container}>
-      <View
-        style={
-          flashOpen
-            ? StyleSheet.flatten([styles.container, styles.disabled])
-            : styles.container
-        }>
-        <Header backIcon handleBack={handleBack} />
-        <View style={styles.flONe}>
-          <View style={styles.flONe}>
-            <MapView latValue={data.coord.lat} longValue={data.coord.lon} />
-          </View>
-          {bottomDetails()}
-        </View>
-      </View>
-
-      {flashOpen ? (
+  const flashMessage = () => {
+    if(flashOpen) {
+      return (
         <View style={styles.flashOuter}>
           <View style={styles.flashContainer}>
             <Text style={styles.countryName}>{data.name}</Text>
             <View style={styles.topBorder} />
             <View style={styles.dateContainer}>
               <Text style={styles.dateText}>{moment().format('HH:MM')}</Text>
-
               <View>
                 <Text style={styles.daysText}>{moment().format('dddd')}</Text>
                 <Text style={styles.daysText}>
@@ -88,7 +72,6 @@ const Weather = ({navigation, route}) => {
               </View>
             </View>
           </View>
-
           <View style={styles.flasBottomOuter}>
             <View style={styles.flCenter}>
               <View style={styles.imageView} />
@@ -102,7 +85,28 @@ const Weather = ({navigation, route}) => {
             <Icon name="cloud" type="MaterialIcons" size={62} color={'#000'} />
           </View>
         </View>
-      ) : null}
+      )
+    } else {
+      return null;
+    }
+  }
+
+  return (
+    <View style={styles.container}>
+      <View
+        style={styles.container}>
+        <Header backIcon handleBack={handleBack} />
+        <View style={styles.flOne}>
+          <View style={styles.flOne}>
+            <MapView latValue={data.coord.lat} longValue={data.coord.lon} />
+          </View>
+          {bottomDetails()}
+        </View>
+        {flashOpen ? 
+          <TouchableOpacity style={styles.disabled} onPress={()=>handleOpen()} />
+        : null }
+      </View>
+      {flashMessage()}
     </View>
   );
 };
@@ -114,26 +118,27 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   disabled: {
-    opacity: 1,
+    opacity: 0.5,
     backgroundColor: '#000',
     height: '100%',
     width: '100%',
     position: 'absolute',
   },
   cityName: {
-    fontSize: 18,
-    fontFamily: font.type.Helvetica,
+    fontSize: 20,
+    fontFamily: font.type.RobotBold,
     marginBottom: 10,
+    color: '#111111',
   },
   weatherType: {
-    fontSize: 16,
-    fontFamily: font.type.Helvetica,
+    fontSize: 18,
+    fontFamily: font.type.Robot,
     color: '#111111',
     marginBottom: 8,
   },
   temperature: {
     fontSize: 32,
-    fontFamily: font.type.Helvetica,
+    fontFamily: font.type.Robot,
   },
   bottomOuter: {
     flexDirection: 'row',
@@ -143,14 +148,14 @@ const styles = StyleSheet.create({
     borderColor: '#B5B5B5',
     paddingHorizontal: 20,
     paddingTop: 15,
-    height: 220,
+    height: 230,
   },
   bottomRight: {
     alignItems: 'center',
     marginTop: 15,
   },
   tempValue: {fontSize: 25},
-  flONe: {flex: 1},
+  flOne: {flex: 1},
   flashOuter: {
     width: '100%',
     position: 'absolute',
@@ -181,13 +186,13 @@ const styles = StyleSheet.create({
   dateText: {
     color: '#fff',
     fontSize: 24,
-    fontFamily: font.type.Helvetica,
+    fontFamily: font.type.Robot,
   },
   daysText: {
     fontSize: 12,
     color: '#fff',
     marginLeft: 10,
-    fontFamily: font.type.Helvetica,
+    fontFamily: font.type.Robot,
   },
   flCenter: {flexDirection: 'row', alignItems: 'center'},
   flasBottomOuter: {
@@ -209,12 +214,12 @@ const styles = StyleSheet.create({
   weatherAppText: {
     fontSize: 16,
     marginLeft: 10,
-    fontFamily: font.type.Helvetica,
+    fontFamily: font.type.Robot,
   },
   tempText: {
     marginTop: 10,
     fontSize: 14,
     marginLeft: 10,
-    fontFamily: font.type.Helvetica,
+    fontFamily: font.type.Robot,
   },
 });

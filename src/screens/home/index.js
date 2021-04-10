@@ -19,7 +19,7 @@ const Home = ({navigation, getCityList, cities}) => {
     </View>
   );
 
-  const renderCountryList = ({item, index}) => {
+  const renderCityList = ({item, index}) => {
     const weatherData = item.weather[0];
     return (
       <TouchableOpacity
@@ -31,7 +31,7 @@ const Home = ({navigation, getCityList, cities}) => {
           <Text style={styles.weatherType}>{weatherData.main} </Text>
         </View>
         <Text style={styles.temperature}>
-          {item.main.temp}&deg; <Text style={styles.temType}>C</Text>{' '}
+          {item.main.temp}&deg;<Text style={styles.temType}>C</Text>{' '}
         </Text>
       </TouchableOpacity>
     );
@@ -44,7 +44,7 @@ const Home = ({navigation, getCityList, cities}) => {
         <FlatList
           data={cities}
           extraData={cities}
-          renderItem={renderCountryList}
+          renderItem={renderCityList}
           showsVerticalScrollIndicator={false}
           keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps="always"
@@ -68,6 +68,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff'
   },
   listOuter: {
     width: '100%',
@@ -81,22 +82,22 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 10,
     paddingHorizontal: 15,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#B5B5B5',
+    borderBottomWidth: 0.17,
+    borderBottomColor: '#b9b9b9',
   },
   cityName: {
-    fontSize: 18,
-    fontFamily: font.type.Helvetica,
-    lineHeight: 35,
+    fontSize: 20,
+    fontFamily: font.type.Robot,
+    marginBottom: 15
   },
   weatherType: {
     fontSize: 14,
-    fontFamily: font.type.Helvetica,
+    fontFamily: font.type.Robot,
     color: '#111111',
   },
   temperature: {
     fontSize: 32,
-    fontFamily: font.type.Helvetica,
+    fontFamily: font.type.Robot,
   },
   noListOuter: {
     flex: 1,
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
   },
   noListText: {
     fontSize: 18,
-    fontFamily: font.type.Helvetica,
+    fontFamily: font.type.Robot,
   },
   temType: {fontSize: 25},
 });
